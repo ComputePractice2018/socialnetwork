@@ -3,13 +3,13 @@
 ## Usercases
 1. Как пользователь, я хочу иметь возможность создать свою страницу(имя, фамилия, email, github), чтобы иметь свой профиль.
 1. Как пользователь, я хочу иметь возможность редактировать свой профиль, чтобы исправить ошибки при создании.
-1. Как пользователь, я хочу иметь возможность найти друзей, чтобы добавить своего друга.
+1. Как пользователь, я хочу иметь возможность добавить друга, чтобы добавить своего друга.
 1. Как пользователь, я хочу иметь возможность просмотреть страницу друзей, чтобы использовать эту информацию.
 1. Как пользователь, я хочу иметь возможность удалить из друзей, чтобы не хранить неактуальную информацию.
 
 ## REST API
 
-### POST /api/socialnetwork/webpage
+### POST /api/socialnetwork/users
 
 Тело запроса:
 
@@ -22,9 +22,9 @@
 }
 ```
 Ответ: 201 Created
-Location: /api/socialnetwork/webpage/1
+Location: /api/socialnetwork/users/1
 
-### PUT /api/socialnetwork/webpage1
+### PUT /api/socialnetwork/users/1
 
 Тело запроса:
 
@@ -37,9 +37,9 @@ Location: /api/socialnetwork/webpage/1
    }
 ```
 Ответ: 202 Accepted
-Location: /api/socialnetwork/webpage/1
+Location: /api/socialnetwork/users/1
 
-### POST /api/socialnetwork/webpage/addfriend/1
+### POST /api/socialnetwork/users/2/friends
 
 Тело запроса:
 
@@ -52,9 +52,9 @@ Location: /api/socialnetwork/webpage/1
 }
 ```
 Ответ: 201 Created
-Location: /api/socialnetwork/webpage/addfriend/1
+Location: /api/socialnetwork/users/friends/2
 
-### GET /api/socialnetwork/webpage
+### GET /api/socialnetwork/users
 
 Ответ: 200 OK
 
@@ -67,7 +67,7 @@ Location: /api/socialnetwork/webpage/addfriend/1
 }]
 ```
 
-### DELETE /api/socialnetwork/webpage/addfriend/1
+### DELETE /api/socialnetwork/users/friends/2
 
 Ответ: 204 No Content
 
