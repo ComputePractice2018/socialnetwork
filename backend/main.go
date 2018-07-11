@@ -1,12 +1,8 @@
 package main
 
 import "fmt"
-
-//GetHelloWorldString возвращает строку "Hello World"
-func GetHelloWorldString(name string) string {
-	return fmt.Sprintf("Hello %s", name)
-}
+import "./utils"
 
 func main() {
-	fmt.Println(GetHelloWorldString("Xenia"))
+	fmt.Println(utils.GetHelloWorld("Xenia"))
 }
