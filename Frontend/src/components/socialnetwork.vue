@@ -1,6 +1,7 @@
 <template>
   <div class="socialnetwork">
     <h1>{{ title }}</h1>
+    <h3 v-if="error">Ошибка: {{error}}</h3>
     <table>
       <tr>
         <th>Имяя</th>
@@ -25,12 +26,14 @@
         <p>Email: <input type="text" v-model="new_contact.email"></p>
         <p>Github: <input type="text" v-model="new_contact.github"></p>
         <button v-if="edit_index == -1" v-on:click="add_new_contact">Добавить контакт</button>
-        <button v-if="edit_index > -1" v-on:click="make_new_contact">Создать нового контакт</button>
+        <button v-if="edit_index > -1" v-on:click="end_of_edition">Закончить редактирование</button>
      </form>
   </div>
 </template>
 
 <script>
+const axios = require('axios')
+
 export default {
   name: 'socialnetwork',
   props: {
@@ -39,20 +42,8 @@ export default {
   data: function () {
     return {
       edit_index: -1,
-      contact_list: [
-        {
-          'name': 'Иван',
-          'surname': 'Иванов',
-          'email': 'Iivanov@domain.ru',
-          'github': 'Iivanov'
-        },
-        {
-          'name': 'Имя',
-          'surname': 'Фамилия',
-          'email': 'user@domain.ru',
-          'github': 'user'
-        }
-      ],
+      error: '',
+      contact_list: [],
       new_contact:
         {
           'name': 'Иван',
@@ -62,25 +53,55 @@ export default {
         }
     }
   },
+  mounted: function () {
+    this.get_contacts()
+  },
   methods: {
+    get_contacts: function () {
+      this.error = ''
+      const url = '/api/socialnetwork/users'
+      axios.get(url).then(response => {
+        this.contact_list = response.data
+      }).catch(response => {
+        this.error = response.response.data
+      })
+    },
     add_new_contact: function () {
-      this.contact_list.push(this.new_contact)
+      this.error = ''
+      const url = '/api/socialnetwork/users'
+      axios.post(url, this.new_contact).then(response => {
+        this.contact_list.push(this.new_contact)
+      }).catch(response => {
+        this.error = response.response.data
+      })
     },
     remove_contact: function (item) {
-      this.contact_list.splice(this.contact_list.indexOf(item), 1)
+      this.error = ''
+      const url = '/api/socialnetwork/users/' + this.contact_list.indexOf(item)
+      axios.delete(url).then(response => {
+        this.contact_list.splice(this.contact_list.indexOf(item), 1)
+      }).catch(response => {
+        this.error = response.response.data
+      })
     },
     edit_contact: function (item) {
       this.edit_index = this.contact_list.indexOf(item)
       this.new_contact = this.contact_list[this.edit_index]
     },
-    make_new_contact: function () {
-      this.edit_index = -1
-      this.new_contact = {
-        'name': '',
-        'surname': '',
-        'email': '',
-        'github': ''
-      }
+    end_of_edition: function () {
+      this.error = ''
+      const url = '/api/socialnetwork/users/' + this.edit_index
+      axios.put(url, this.new_contact).then(response => {
+        this.edit_index = -1
+        this.new_contact = {
+          'name': '',
+          'surname': '',
+          'email': '',
+          'github': ''
+        }
+      }).catch(response => {
+        this.error = response.response.data
+      })
     }
   }
 }
