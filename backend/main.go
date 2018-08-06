@@ -1,11 +1,16 @@
 package main
 
-import "fmt"
-import "flag"
-import "./utils"
+import (
+	"log"
+	"net/http"
+
+	"github.com/ComputePractice2018/socialnetwork/backend/data"
+)
+
 
 func main() {
-	var name = flag.String("name", "Xenia", "имя для приветствия")
-	flag.Parse()
-	fmt.Println(utils.GetHelloWorld(*name))
+	
+	http.HandleFunc("/api/socialnetwork/users", server.GetUsers) {
+
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
