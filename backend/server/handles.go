@@ -1,6 +1,5 @@
 package server
 
-//
 import (
 	"encoding/json"
 	"fmt"
