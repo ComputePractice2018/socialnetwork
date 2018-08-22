@@ -6,7 +6,7 @@ type User struct {
     Email   string 'json:"email"'
     Github  string 'json:"github"'
 } 
-
+//
 //UserList хранимый список пользователей
 var UserList = []User{User {
    Name: "Имя",
