@@ -10,7 +10,7 @@ import (
 //
 func main() {
 	
-	http.HandleFunc("/api/socialnetwork/users", server.GetUsers) {
+	http.HandleFunc("/api/socialnetwork/users", server.UserHandler) {
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
