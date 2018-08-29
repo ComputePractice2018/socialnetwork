@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"github.com/gorilla/mux"
 
 	"github.com/ComputePractice2018/socialnetwork/backend/data"
 )
@@ -10,7 +11,13 @@ import (
 //
 func main() {
 	
-	http.HandleFunc("/api/socialnetwork/users", server.UserHandler) {
+	router := mux.NewRouter()
+	router.HandleFunc("/api/socialnetwork/users",server.GetUsers).Methods("GET")
+	router.HandleFunc("/api/socialnetwork/users",server.AddUsers).Methods("POST")
+	router.HandleFunc("/api/socialnetwork/users/{id}",server.EditUsers).Methods("PUT")
+	router.HandleFunc("/api/socialnetwork/users/{id}",server.DeleteUsers).Methods("Delete")
 
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	//http.HandleFunc("/api/socialnetwork/users", server.UserHandler) {
+
+	log.Fatal(http.ListenAndServe(":8080", router))
 }

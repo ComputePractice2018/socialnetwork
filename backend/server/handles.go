@@ -9,21 +9,6 @@ import (
 	"github.com/ComputePractice2018/socialnetwork/backend/data"
 )
 
-//UserHandler обрабатывает все запросы /api/socialnetwork/user
-func UserHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "GET" {
-		GetUsers(w, r)
-		return
-	}
-	if r.Method == "POST" {
-		AddUser(w, r)
-		return
-	}
-	message := fmt.Sprintf("Method %s is not allowed", r.Method)
-	http.Error(w, message, http.StatusMethodNotAllowed)
-	log.Println(message)
-}
-
 //GetUsers обрабатывает запросы на получение списка пользователей
 func GetUsers(w http.ResponseWriter, r *http.Request) {
 	binaryData, err := json.Marshal(data.UserList)
@@ -59,4 +44,12 @@ func AddUser(w http.ResponseWriter, r *http.Request) {
 	}
 	log.Printf("%+v", user)
 	w.WriteHeader(http.StatusCreated)
+}
+
+func EditUser(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func DeleteUser(w http.ResponseWriter, r *http.Request) {
+
 }
