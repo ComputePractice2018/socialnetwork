@@ -9,6 +9,7 @@ import (
 	"github.com/ComputePractice2018/socialnetwork/backend/data"
 )
 
+//
 //GetUsers обрабатывает запросы на получение списка пользователей
 func GetUsers(w http.ResponseWriter, r *http.Request) {
 	binaryData, err := json.Marshal(data.UserList)
